@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["5PKMFF36PT.com.meeplo.MeeploApp"],
+        "components": [
+          { "/": "/l/*", "comment": "A shared listing" }
+        ]
+      }
+    ]
+  }
+}
