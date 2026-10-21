@@ -44,11 +44,13 @@
     .stores { display: flex; flex-wrap: wrap; gap: 12px; }
     .store { display: inline-flex; align-items: center; gap: 16px; padding: 13px 20px; color: white; background: var(--purple); text-decoration: none; border-radius: 13px; font-size: 15px; font-weight: 650; min-height: 52px; }
     .store:hover { background: #3933ad; }
+    .store--soon, .store--soon:hover { background: transparent; color: var(--muted); border: 1px solid #d6d1e6; font-weight: 500; }
+    .store--soon strong { display: block; color: var(--ink); font-size: 15px; line-height: 1.3; }
+    .store--soon small { display: block; font-size: 11px; line-height: 1.4; }
     [hidden] { display: none !important; }
     .store svg { width: 22px; height: 24px; flex-shrink: 0; }
     .existing { margin-top: 24px; padding-left: 16px; border-left: 2px solid #d8d3ea; font-size: 13px; color: var(--muted); max-width: 410px; }
     .existing strong { color: var(--ink); display: block; font-size: 14px; margin-bottom: 3px; }
-    .iphone { margin: 14px 0 0; font-size: 13px; color: var(--muted); }
     .art { position: relative; padding: 36px 24px 30px; min-height: 440px; border-radius: 130px 130px 28px 28px; background: var(--plum); color: var(--yellow); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 10px 10px 0 #ece8e0; isolation: isolate; }
     .art::before { content: ""; position: absolute; inset: 24px; border: 1px solid #ffd96626; border-radius: 110px 110px 15px 15px; pointer-events: none; }
     .mascot { width: 180px; height: 180px; border-radius: 38px; transform: rotate(-8deg); box-shadow: 0 12px 30px #12051e40; }
@@ -97,14 +99,17 @@
         <h1 id="titulo">Un juego puede<br>tener muchas<br><span>próximas partidas.</span></h1>
         <p class="lead">Este anuncio se ve en Meeplo. Entra a la app para conocer el juego, ver sus fotos y conversar con quien lo vende.</p>
         <div class="stores" aria-label="Descargar Meeplo">
-          <!-- Add the App Store URL when available. Never show a download button without a destination. -->
+          <!-- Set the App Store URL when published; the placeholder is replaced automatically. -->
           <a class="store" id="app-store" href="" hidden>Descargar en el App Store <span aria-hidden="true">↗</span></a>
+          <span class="store store--soon" id="app-store-coming-soon">
+            <svg viewBox="0 0 24 26" fill="none" aria-hidden="true"><rect x="5" y="1.5" width="14" height="23" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M10 5h4M11 21h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span><strong>App Store</strong><small>Próximamente para iPhone</small></span>
+          </span>
           <a class="store" id="google-play" href="https://play.google.com/store/apps/details?id=com.meeplo.meeploapp">
             <svg viewBox="0 0 24 26" fill="none" aria-hidden="true"><path d="M3 2 22 13 3 24V2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m3 2 12 16M3 24 15 8" stroke="currentColor" stroke-width="1.3"/></svg>
             Descargar en Google Play
           </a>
         </div>
-        <p class="iphone" id="iphone-help">¿Buscas la versión para iPhone? <a href="/soporte/">Escríbenos y te ayudamos.</a></p>
         <p class="existing"><strong>¿Ya tienes Meeplo?</strong>Abre el enlace original desde WhatsApp o Mensajes en tu teléfono. Si no se abre la app, comprueba que tengas la última versión.</p>
       </div>
       <div class="art" aria-label="La mascota amarilla de Meeplo. Que siga el juego.">
@@ -130,7 +135,7 @@
     const appStore = document.getElementById("app-store");
     if (appStore.getAttribute("href")) {
       appStore.hidden = false;
-      document.getElementById("iphone-help").hidden = true;
+      document.getElementById("app-store-coming-soon").hidden = true;
     }
     // Preserve the existing Android fallback. Installed apps handle verified links before this page loads.
     const play = document.getElementById("google-play").getAttribute("href");
